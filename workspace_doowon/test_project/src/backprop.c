@@ -322,6 +322,7 @@ void backprop(TYPE weights1[input_dimension*nodes_per_layer],
         krnl_get_delta_matrix_weights3.setArg(0, buffer_delta_weights3);
         krnl_get_delta_matrix_weights3.setArg(1, buffer_output_difference);
         krnl_get_delta_matrix_weights3.setArg(2, buffer_activations2);
+        krnl_get_delta_matrix_weights3.setArg(3, possible_outputs);
 
         q.enqueueNDRangeKernel(krnl_get_delta_matrix_weights3, cl::NullRange, cl::NDRange(nodes_per_layer), cl::NullRange);
 
