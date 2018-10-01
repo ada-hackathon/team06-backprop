@@ -241,9 +241,7 @@ void backprop(TYPE weights1[input_dimension*nodes_per_layer],
     devices.resize(1);
     cl::Program program(context, devices, bins);
     cl::Kernel krnl_dense_layer_with_relu(program, "dense_layer_with_relu");
-    cl::Kernel krnl_get_delta_matrix_weights3(program, "get_delta_matrix_weights3");
-    cl::Kernel krnl_get_oracle_activations2(program, "get_oracle_activations2");
-    cl::Kernel krnl_get_delta_matrix_weights2(program, "get_delta_matrix_weights2");
+    cl::Kernel krnl_get_delta_and_oracle(program, "get_delta_and_oracle");
 
     //Allocate Buffer in Global Memory
     cl::Buffer buffer_biases2(context, CL_MEM_READ_ONLY, nodes_per_layer * sizeof(TYPE));
@@ -252,6 +250,7 @@ void backprop(TYPE weights1[input_dimension*nodes_per_layer],
 
     cl::Buffer buffer_activations1(context, CL_MEM_READ_WRITE, nodes_per_layer * sizeof(TYPE));
     cl::Buffer buffer_activations2(context, CL_MEM_READ_WRITE, nodes_per_layer * sizeof(TYPE));
+    cl::Buffer buffer_dactivations1(context, CL_MEM_READ_WRITE, nodes_per_layer * sizeof(TYPE));
     cl::Buffer buffer_dactivations2(context, CL_MEM_READ_WRITE, nodes_per_layer * sizeof(TYPE));
 
     cl::Buffer buffer_delta_weights3(context, CL_MEM_READ_WRITE, nodes_per_layer * possible_outputs * sizeof(TYPE));
@@ -292,41 +291,30 @@ void backprop(TYPE weights1[input_dimension*nodes_per_layer],
         // get_delta_matrix_weights3(delta_weights3, output_difference, activations2);
         q.enqueueWriteBuffer(buffer_delta_weights3, CL_TRUE, 0, nodes_per_layer * possible_outputs * sizeof(TYPE), delta_weights3);
         q.enqueueWriteBuffer(buffer_output_difference, CL_TRUE, 0, possible_outputs * sizeof(TYPE), output_difference);
+        q.enqueueWriteBuffer(buffer_deactivation1, CL_TRUE, 0, nodes_per_layer * sizeof(TYPE), deactivation1); 
 
-        krnl_get_delta_matrix_weights3.setArg(0, buffer_delta_weights3);
-        krnl_get_delta_matrix_weights3.setArg(1, buffer_output_difference);
-        krnl_get_delta_matrix_weights3.setArg(2, buffer_activations2);
-        krnl_get_delta_matrix_weights3.setArg(3, possible_outputs);
+        krnl_get_delta_and_oracle.setArg(0, buffer_output_difference);
+        krnl_get_delta_and_oracle.setArg(1, buffer_activations1);
+        krnl_get_delta_and_oracle.setArg(2, buffer_activations2);
+        krnl_get_delta_and_oracle.setArg(3, buffer_weights2);
+        krnl_get_delta_and_oracle.setArg(4, buffer_weights3);
+        krnl_get_delta_and_oracle.setArg(5, buffer_deactivation1);
+        krnl_get_delta_and_oracle.setArg(6, buffer_delta_weights3);
+        krnl_get_delta_and_oracle.setArg(7, buffer_delta_weights2);
+        krnl_get_delta_and_oracle.setArg(8, buffer_oracle_activations2);
+        krnl_get_delta_and_oracle.setArg(9, buffer_oracle_activations1);
+        krnl_get_delta_and_oracle.setArg(10, possible_outputs);
+        krnl_get_delta_and_oracle.setArg(11, nodes_per_layer);
 
-        q.enqueueNDRangeKernel(krnl_get_delta_matrix_weights3, cl::NullRange, cl::NDRange(nodes_per_layer), cl::NullRange);
+        q.enqueueNDRangeKernel(krnl_get_delta_and_oracle, cl::NullRange, cl::NDRange(nodes_per_layer), cl::NullRange);
 
-        q.enqueueReadBuffer(buffer_delta_weights3, CL_TRUE, 0, nodes_per_layer * possible_outputs * sizeof(TYPE), delta_weights3);
-
-        // get_oracle_activations2(weights3, output_difference, oracle_activations2, dactivations2);
-
-        krnl_get_oracle_activations2.setArg(0, buffer_weights3);
-        krnl_get_oracle_activations2.setArg(1, buffer_output_difference);
-        krnl_get_oracle_activations2.setArg(2, buffer_oracle_activations2);
-        krnl_get_oracle_activations2.setArg(3, buffer_deactivation2);
-        krnl_get_oracle_activations2.setArg(4, possible_outputs);
-      
-        q.enqueueNDRangeKernel(krnl_get_oracle_activations2, cl::NullRange, cl::NDRange(nodes_per_layer), cl::NullRange);
-        
-        // get_delta_matrix_weights2(delta_weights2, oracle_activations2, activations1);
-
-        krnl_get_delta_matrix_weights2.setArg(0, buffer_delta_weights2);
-        krnl_get_delta_matrix_weights2.setArg(1, buffer_oracle_activations2);
-        krnl_get_delta_matrix_weights2.setArg(2, buffer_activations1);
-        krnl_get_delta_matrix_weights2.setArg(3, nodes_per_layer);
-        
-        q.enqueueNDRangeKernel(krnl_get_delta_matrix_weights2, cl::NullRange, cl::NDRange(nodes_per_layer), cl::NullRange);
-
-        q.enqueueReadBuffer(buffer_oracle_activations2, CL_TRUE, 0, nodes_per_layer * sizeof(TYPE), oracle_activations2);
-
-        get_oracle_activations1(weights2, oracle_activations2, oracle_activations1, dactivations1);
         get_delta_matrix_weights1(delta_weights1, oracle_activations1, &training_data[i*input_dimension]);
 
         q.enqueueReadBuffer(buffer_output_difference, CL_TRUE, 0, possible_outputs * sizeof(TYPE), output_difference);
+        q.enqueueReadBuffer(buffer_delta_weights3, CL_TRUE, 0, nodes_per_layer * possible_outputs * sizeof(TYPE), delta_weights3);
+        q.enqueueReadBuffer(buffer_oracle_activations2, CL_TRUE, 0, nodes_per_layer * sizeof(TYPE), oracle_activations2);
+        q.enqueueReadBuffer(buffer_delta_weights2, CL_TRUE, 0, nodes_per_layer * possible_outputs * sizeof(TYPE), delta_weights2);
+        q.enqueueReadBuffer(buffer_oracle_activations1, CL_TRUE, 0, nodes_per_layer * sizeof(TYPE), oracle_activations1);
 
         update_weights(weights1, weights2, weights3, delta_weights1, delta_weights2, delta_weights3, 
                        biases1, biases2, biases3, oracle_activations1, oracle_activations2, output_difference);
