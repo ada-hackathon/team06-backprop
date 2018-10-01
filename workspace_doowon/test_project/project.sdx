@@ -3,15 +3,23 @@
   <configuration name="Debug" id="com.xilinx.sdx.sdsoc.opencl.config.debug.118829460">
     <configBuildOptions xsi:type="openclProject:OpenCLOptions" emulationToolchain="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64" hardwareToolchain="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64">
       <binaryContainers name="binary_container_1">
-        <kernels name="adder" sourceFile="src/adder.cl"/>
-        <kernels name="mult" sourceFile="src/mult.cl"/>
+        <kernels name="adder" sourceFile="src/adder.cl">
+          <computeUnits name="adder_1"/>
+        </kernels>
+        <kernels name="mult" sourceFile="src/mult.cl">
+          <computeUnits name="mult_1"/>
+        </kernels>
       </binaryContainers>
       <sdsBuildOptions insertapm="false" gensdcard="false" dmclkid="1" enableHwSwTrace="false" traceApplication="false" buildTarget="emulation"/>
     </configBuildOptions>
     <lastBuildOptions xsi:type="openclProject:OpenCLOptions" emulationToolchain="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64" hardwareToolchain="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64">
       <binaryContainers name="binary_container_1">
-        <kernels name="adder" sourceFile="src/adder.cl"/>
-        <kernels name="mult" sourceFile="src/mult.cl"/>
+        <kernels name="adder" sourceFile="src/adder.cl">
+          <computeUnits name="adder_1"/>
+        </kernels>
+        <kernels name="mult" sourceFile="src/mult.cl">
+          <computeUnits name="mult_1"/>
+        </kernels>
       </binaryContainers>
       <sdsBuildOptions insertapm="false" gensdcard="false" dmclkid="1" enableHwSwTrace="false" traceApplication="false" buildTarget="emulation"/>
     </lastBuildOptions>
