@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<systemproject:SystemProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:systemproject="http://www.xilinx.com/systemproject" name="test_project_system" platform="/opt/Xilinx/SDx/2018.2/platforms/zcu102/zcu102.xpfm" platformUID="xilinx.com:zcu102:zcu102:1.0" sysConfig="ocl">
+  <configuration name="Debug">
+    <configBuildOptions xsi:type="systemproject:SystemOptions">
+      <applications name="test_project" domainName="ocl" domainPrettyName="ocl" appBuildConfig="Debug"/>
+    </configBuildOptions>
+  </configuration>
+  <configuration name="Release">
+    <configBuildOptions xsi:type="systemproject:SystemOptions">
+      <applications name="test_project" domainName="ocl" domainPrettyName="ocl" appBuildConfig="Release"/>
+    </configBuildOptions>
+  </configuration>
+</systemproject:SystemProject>

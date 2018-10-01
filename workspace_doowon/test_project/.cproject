@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.xilinx.sdx.sdsoc.opencl.config.debug.118829460">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.xilinx.sdx.sdsoc.opencl.config.debug.118829460" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings/>
+				<extensions>
+					<extension id="com.xilinx.sdx.sdsoc.opencl.managedbuild.XilinxSdsOpenclExeParser" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.xilinx.sdx.opencl.managedbuild.XoccErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildArtefactType="com.xilinx.sdx.opencl.buildArtefactType.hostExe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=com.xilinx.sdx.opencl.buildArtefactType.hostExe" description="" id="com.xilinx.sdx.sdsoc.opencl.config.debug.118829460" name="Debug" parent="com.xilinx.sdx.sdsoc.opencl.config.debug">
+					<folderInfo id="com.xilinx.sdx.sdsoc.opencl.config.debug.118829460." name="/" resourcePath="">
+						<toolChain id="com.xilinx.sdx.opencl.toolchain.sds.debug.816292427" name="Xilinx SDSoC OpenCL Toolchain (aarch64)" superClass="com.xilinx.sdx.opencl.toolchain.sds.debug">
+							<targetPlatform binaryParser="com.xilinx.sdx.sdsoc.opencl.managedbuild.XilinxSdsOpenclExeParser" id="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64.targetPlatform.8518422" isAbstract="false" name="Xilinx SDSoC OpenCL Toolchain (x86_64) Target Platform" superClass="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64.targetPlatform"/>
+							<builder buildPath="${workspace_loc:/test_project}/Debug" enableAutoBuild="true" id="com.xilinx.sdx.opencl.make_builder.379087076" managedBuildOn="true" name="Xilinx SDx OpenCL Builder.Debug" superClass="com.xilinx.sdx.opencl.make_builder"/>
+							<tool id="com.xilinx.sdx.opencl.toolchain.xocc_compiler.424845267" name="SDx XOCC Kernel Compiler" superClass="com.xilinx.sdx.opencl.toolchain.xocc_compiler">
+								<inputType id="com.xilinx.sdx.opencl.toolchain.xocc_compiler.input.cl.1608682549" name="OpenCL files" superClass="com.xilinx.sdx.opencl.toolchain.xocc_compiler.input.cl"/>
+							</tool>
+							<tool id="com.xilinx.sdx.opencl.toolchain.xocc_linker.1325572715" name="SDx XOCC Kernel Linker" superClass="com.xilinx.sdx.opencl.toolchain.xocc_linker"/>
+							<tool id="com.xilinx.sdx.opencl.emconfigutil.711743777" name="emconfigutil" superClass="com.xilinx.sdx.opencl.emconfigutil"/>
+							<tool id="com.xilinx.sdx.opencl.toolchain.gcc_compiler.aarch64.1495717503" name="SDx GCC Host Compiler (aarch64)" superClass="com.xilinx.sdx.opencl.toolchain.gcc_compiler.aarch64">
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1367428599" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool id="com.xilinx.sdx.opencl.toolchain.gcc_linker.aarch64.2004623210" name="SDx GCC Host Linker (aarch64)" superClass="com.xilinx.sdx.opencl.toolchain.gcc_linker.aarch64">
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1016839002" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+		<cconfiguration id="com.xilinx.sdx.sdsoc.opencl.config.release.1139151765">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.xilinx.sdx.sdsoc.opencl.config.release.1139151765" moduleId="org.eclipse.cdt.core.settings" name="Release">
+				<externalSettings/>
+				<extensions>
+					<extension id="com.xilinx.sdx.sdsoc.opencl.managedbuild.XilinxSdsOpenclExeParser" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.xilinx.sdx.opencl.managedbuild.XoccErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactName="${ProjName}" buildArtefactType="com.xilinx.sdx.opencl.buildArtefactType.hostExe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=com.xilinx.sdx.opencl.buildArtefactType.hostExe" description="" id="com.xilinx.sdx.sdsoc.opencl.config.release.1139151765" name="Release" parent="com.xilinx.sdx.sdsoc.opencl.config.release">
+					<folderInfo id="com.xilinx.sdx.sdsoc.opencl.config.release.1139151765." name="/" resourcePath="">
+						<toolChain id="com.xilinx.sdx.opencl.toolchain.sds.release.2046818438" name="Xilinx SDSoC OpenCL Toolchain (aarch64)" superClass="com.xilinx.sdx.opencl.toolchain.sds.release">
+							<targetPlatform binaryParser="com.xilinx.sdx.sdsoc.opencl.managedbuild.XilinxSdsOpenclExeParser" id="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64.targetPlatform.158948331" isAbstract="false" name="Xilinx SDSoC OpenCL Toolchain (x86_64) Target Platform" superClass="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64.targetPlatform"/>
+							<builder buildPath="${workspace_loc:/test_project}/Release" enableAutoBuild="true" id="com.xilinx.sdx.opencl.make_builder.1353000855" managedBuildOn="true" name="Xilinx SDx OpenCL Builder.Release" superClass="com.xilinx.sdx.opencl.make_builder"/>
+							<tool id="com.xilinx.sdx.opencl.toolchain.xocc_compiler.968443469" name="SDx XOCC Kernel Compiler" superClass="com.xilinx.sdx.opencl.toolchain.xocc_compiler">
+								<inputType id="com.xilinx.sdx.opencl.toolchain.xocc_compiler.input.cl.82512935" name="OpenCL files" superClass="com.xilinx.sdx.opencl.toolchain.xocc_compiler.input.cl"/>
+							</tool>
+							<tool id="com.xilinx.sdx.opencl.toolchain.xocc_linker.1803806579" name="SDx XOCC Kernel Linker" superClass="com.xilinx.sdx.opencl.toolchain.xocc_linker"/>
+							<tool id="com.xilinx.sdx.opencl.emconfigutil.544036208" name="emconfigutil" superClass="com.xilinx.sdx.opencl.emconfigutil"/>
+							<tool id="com.xilinx.sdx.opencl.toolchain.gcc_compiler.aarch64.677367381" name="SDx GCC Host Compiler (aarch64)" superClass="com.xilinx.sdx.opencl.toolchain.gcc_compiler.aarch64">
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.2070843035" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
+							</tool>
+							<tool id="com.xilinx.sdx.opencl.toolchain.gcc_linker.aarch64.825308248" name="SDx GCC Host Linker (aarch64)" superClass="com.xilinx.sdx.opencl.toolchain.gcc_linker.aarch64">
+								<inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.618676452" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
+									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
+									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
+								</inputType>
+							</tool>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="test_project.com.xilinx.sdx.sdsopencl.project.1802604406" name="" projectType="com.xilinx.sdx.sdsopencl.project"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+	</storageModule>
+</cproject>

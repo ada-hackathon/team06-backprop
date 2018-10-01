@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ASCII"?>
+<openclProject:OpenCLProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:openclProject="http://www.xilinx.com/openclproject" name="test_project" location="/home/hackathon06/workspace_doowon/test_project" platform="/opt/Xilinx/SDx/2018.2/platforms/zcu102/zcu102.xpfm" platformUID="xilinx.com:zcu102:zcu102:1.0" systemProject="test_project_system" sysConfig="ocl" cpu="ocl" cpuInstance="" os="linux">
+  <configuration name="Debug" id="com.xilinx.sdx.sdsoc.opencl.config.debug.118829460">
+    <configBuildOptions xsi:type="openclProject:OpenCLOptions" emulationToolchain="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64" hardwareToolchain="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64">
+      <binaryContainers name="binary_container_1">
+        <kernels name="adder" sourceFile="src/adder.cl"/>
+        <kernels name="mult" sourceFile="src/mult.cl"/>
+      </binaryContainers>
+      <sdsBuildOptions insertapm="false" gensdcard="false" dmclkid="1" enableHwSwTrace="false" traceApplication="false" buildTarget="emulation"/>
+    </configBuildOptions>
+    <lastBuildOptions xsi:type="openclProject:OpenCLOptions" emulationToolchain="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64" hardwareToolchain="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64">
+      <binaryContainers name="binary_container_1">
+        <kernels name="adder" sourceFile="src/adder.cl"/>
+        <kernels name="mult" sourceFile="src/mult.cl"/>
+      </binaryContainers>
+      <sdsBuildOptions insertapm="false" gensdcard="false" dmclkid="1" enableHwSwTrace="false" traceApplication="false" buildTarget="emulation"/>
+    </lastBuildOptions>
+  </configuration>
+  <configuration name="Release" id="com.xilinx.sdx.sdsoc.opencl.config.release.1139151765" dirty="true">
+    <configBuildOptions xsi:type="openclProject:OpenCLOptions" target="hw" emulationToolchain="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64" hardwareToolchain="com.xilinx.sdx.sdsoc.opencl.toolchain.aarch64">
+      <sdsBuildOptions insertapm="false" gensdcard="true" dmclkid="1" enableHwSwTrace="false" traceApplication="false"/>
+    </configBuildOptions>
+  </configuration>
+</openclProject:OpenCLProject>
