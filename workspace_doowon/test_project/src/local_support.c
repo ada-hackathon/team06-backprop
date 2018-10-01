@@ -1,5 +1,8 @@
 #include "backprop.h"
 #include <string.h>
+#include "support.h"
+#include "input.h"
+#include "check.h"
 
 int INPUT_SIZE = sizeof(struct bench_args_t);
 
@@ -18,6 +21,43 @@ TYPE[row_size*col_size]: input matrix
 %% Section 2
 TYPE[f_size]: filter coefficients
 */
+
+// doowon
+void input_string_to_data(void *vdata) {
+  struct bench_args_t *data = (struct bench_args_t *)vdata;
+  char *p, *s;
+  // Zero-out everything.
+  memset(vdata,0,sizeof(struct bench_args_t));
+
+  // Load input string
+  //p = readfile(fd);
+  p = input_str;
+
+  s = find_section_start(p,1);
+  STAC(parse_,TYPE,_array)(s, data->weights1, input_dimension*nodes_per_layer);
+
+  s = find_section_start(p,2);
+  STAC(parse_,TYPE,_array)(s, data->weights2, nodes_per_layer*nodes_per_layer);
+
+  s = find_section_start(p,3);
+  STAC(parse_,TYPE,_array)(s, data->weights3, nodes_per_layer*possible_outputs);
+
+  s = find_section_start(p,4);
+  STAC(parse_,TYPE,_array)(s, data->biases1, nodes_per_layer);
+
+  s = find_section_start(p,5);
+  STAC(parse_,TYPE,_array)(s, data->biases2, nodes_per_layer);
+
+  s = find_section_start(p,6);
+  STAC(parse_,TYPE,_array)(s, data->biases3, possible_outputs);
+
+  s = find_section_start(p,7);
+  STAC(parse_,TYPE,_array)(s, data->training_data, training_sets*input_dimension);
+
+  s = find_section_start(p,8);
+  STAC(parse_,TYPE,_array)(s, data->training_targets, training_sets*possible_outputs);
+  //free(p);
+}
 
 void input_to_data(int fd, void *vdata) {
   struct bench_args_t *data = (struct bench_args_t *)vdata;
@@ -86,6 +126,38 @@ void data_to_input(int fd, void *vdata) {
 %% Section 1
 TYPE[row_size*col_size]: solution matrix
 */
+
+// doowon: FIXME
+
+void output_string_to_data(void *vdata) {
+  struct bench_args_t *data = (struct bench_args_t *)vdata;
+  char *p, *s;
+  // Zero-out everything.
+  memset(vdata,0,sizeof(struct bench_args_t));
+  // Load input string
+  //p = readfile(fd);
+  p = check_str;
+
+  s = find_section_start(p,1);
+  STAC(parse_,TYPE,_array)(s, data->weights1, input_dimension*nodes_per_layer);
+
+  s = find_section_start(p,2);
+  STAC(parse_,TYPE,_array)(s, data->weights2, nodes_per_layer*nodes_per_layer);
+
+  s = find_section_start(p,3);
+  STAC(parse_,TYPE,_array)(s, data->weights3, nodes_per_layer*possible_outputs);
+
+  s = find_section_start(p,4);
+  STAC(parse_,TYPE,_array)(s, data->biases1, nodes_per_layer);
+
+  s = find_section_start(p,5);
+  STAC(parse_,TYPE,_array)(s, data->biases2, nodes_per_layer);
+
+  s = find_section_start(p,6);
+  STAC(parse_,TYPE,_array)(s, data->biases3, possible_outputs);
+  //free(p);
+
+}
 
 void output_to_data(int fd, void *vdata) {
   struct bench_args_t *data = (struct bench_args_t *)vdata;

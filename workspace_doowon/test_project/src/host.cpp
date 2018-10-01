@@ -1,57 +1,22 @@
-/**********
-Copyright (c) 2018, Xilinx, Inc.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice,
-this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice,
-this list of conditions and the following disclaimer in the documentation
-and/or other materials provided with the distribution.
-
-3. Neither the name of the copyright holder nor the names of its contributors
-may be used to endorse or promote products derived from this software
-without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
-PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
-EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-**********/
 //OpenCL utility layer include
 #include "xcl2.hpp"
 #include <iostream>
 #include <vector>
 #include "backprop.h"
+#include "support.h"
 #include <string.h>
-
+#include <assert.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <fcntl.h>
 
 #define DATA_SIZE 256
 #define COLS 16
-#define EPSILON (1.0e-6)
+//#define EPSILON (1.0e-6)
 
-///// TYPE macros
-// Macro trick to automatically expand TYPE into the appropriate function
-// (S)et (T)ype (A)nd (C)oncatenate
-#define __STAC_EXPANDED(f_pfx,t,f_sfx) f_pfx##t##f_sfx
-#define STAC(f_pfx,t,f_sfx) __STAC_EXPANDED(f_pfx,t,f_sfx)
-// Invoke like this:
-//   #define TYPE int32_t
-//   STAC(write_,TYPE,_array)(fd, array, n);
-// where array is of type (TYPE *)
-// This translates to:
-//   write_int32_t_array(fd, array, n);
+//int INPUT_SIZE = sizeof(struct bench_args_t);
 
-int INPUT_SIZE = sizeof(struct bench_args_t);
-
+#if 0
 void run_benchmark( void *vargs ) {
   struct bench_args_t *args = (struct bench_args_t *)vargs;
   backprop( args->weights1, args->weights2, args->weights3,
@@ -226,29 +191,31 @@ int check_data( void *vdata, void *vref ) {
   // Return true if it's correct.
   return !has_errors;
 }
+#endif
+
 using namespace std;
 int main(int argc, char** argv)
 {
+    printf("Hello, world!\n");
     // doowon: copied from main() in harness.cpp
     // Parse command line.
-    char *in_file;
-    char *check_file;
-    assert( argc<4 && "Usage: ./benchmark <input_file> <check_file>" );
-    in_file = "input.data";
-    check_file = "check.data";
+    const char *in_file = "input.data";
+    const char *check_file = "check.data";
+    //assert( argc<4 && "Usage: ./benchmark <input_file> <check_file>" );
     if( argc>1 )
       in_file = argv[1];
     if( argc>2 )
       check_file = argv[2];
   
     // Load input data
-    int in_fd;
+    //int in_fd;
     char *data;
-    data = malloc(INPUT_SIZE);
+    data = (char *)malloc(INPUT_SIZE);
     assert( data!=NULL && "Out of memory" );
-    in_fd = open( in_file, O_RDONLY );
-    assert( in_fd>0 && "Couldn't open input data file");
-    input_to_data(in_fd, data);
+    //in_fd = open( in_file, O_RDONLY );
+    //assert( in_fd>0 && "Couldn't open input data file");
+    //input_to_data(in_fd, data);
+    input_string_to_data(data);
   
     // Unpack and call
     run_benchmark( data );
@@ -258,15 +225,17 @@ int main(int argc, char** argv)
     assert( out_fd>0 && "Couldn't open output data file" );
     data_to_output(out_fd, data);
     close(out_fd);
-  
+
+    // doowon: FIXME: read from check_str variable (check.h)
     // Load check data
-    int check_fd;
+    //int check_fd;
     char *ref;
-    ref = malloc(INPUT_SIZE);
+    ref = (char *)malloc(INPUT_SIZE);
     assert( ref!=NULL && "Out of memory" );
-    check_fd = open( check_file, O_RDONLY );
-    assert( check_fd>0 && "Couldn't open check data file");
-    output_to_data(check_fd, ref);
+    //check_fd = open( check_file, O_RDONLY );
+    //assert( check_fd>0 && "Couldn't open check data file");
+    //output_to_data(check_fd, ref);
+    output_string_to_data(ref);
   
     // Validate benchmark results
     if( !check_data(data, ref) ) {
